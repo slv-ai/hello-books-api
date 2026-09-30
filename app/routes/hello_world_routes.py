@@ -1,5 +1,6 @@
 from flask import Blueprint, abort, make_response
 from app.models.book import books
+
 books_bp  = Blueprint("books_bp", __name__, url_prefix="/books")
 
 def validate_book__id(book_id):
@@ -25,30 +26,30 @@ def get_one_book(book_id):
     }
 
 
-# def get_all_books():
-#     books_response =[]
-#     for book in books:
-#         books_response.append(
-#             {
-#                 "id" : book.id,
-#                 "title" : book.title,
-#                 "description" : book.description
+@books_bp.get("")
+def get_all_books():
+    books_response =[]
+    for book in books:
+        books_response.append(
+            {
+                "id" : book.id,
+                "title" : book.title,
+                "description" : book.description
 
-#             }
-#         )
-#     return books_response
-
-
-
+            }
+        )
+    return books_response
 
 
+#hello_world_bp = Blueprint("hello_world", __name__)
 
 
-# hello_world_bp = Blueprint("hello_world", __name__)
+# #### ENDPOINT 1 ####
 # @hello_world_bp.get("/")
 # def say_hello_world():
 #     return "Hello world"
 
+# #### ENDPOINT 2 ####
 # @hello_world_bp.get("/hello/JSON")
 # def say_hello_json():
 #     return {
@@ -57,6 +58,7 @@ def get_one_book(book_id):
 #         "hobbies" : ["fishing","swimming"]
 #     }
 
+# #### ENDPOINT 3 ####
 # @hello_world_bp.get("/broken-endpoint-with-broken-servercode")
 # def broken_endpoint():
 #     response_body = {
