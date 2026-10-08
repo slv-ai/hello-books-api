@@ -14,7 +14,7 @@ def create_book():
     db.session.commit()
 
     response = {
-        "id ": new_book.id,
+        "id": new_book.id,
         "title" : new_book.title,
         "description" : new_book.description
     }
