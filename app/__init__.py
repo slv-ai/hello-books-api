@@ -1,6 +1,5 @@
 from flask import Flask
-#from .routes.hello_world_routes import hello_world_bp
-from .routes.book_routes import books_bp
+from .routes.book_routes import bp as books_bp
 from .db import db
 from .db import migrate
 from .models import book
@@ -9,7 +8,9 @@ import os
 def create_app(config = None):
     app = Flask(__name__)
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres:postgres@localhost:5432/hello_books_development'
+
+    
     if config :
         app.config.update(config)
     db.init_app(app)
