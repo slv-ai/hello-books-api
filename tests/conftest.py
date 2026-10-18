@@ -5,6 +5,7 @@ from flask.signals import request_finished
 from dotenv import load_dotenv
 import os
 from app.models.book import Book
+from app.models.author import Author
 
 @pytest.fixture
 def app():
@@ -35,4 +36,10 @@ def two_saved_books(app):
     mountain_book = Book(title = "mountain book",
                         description = "2 climb rocks")
     db.session.add_all([ocean_book,mountain_book])
+    db.session.commit()
+
+@pytest.fixture
+def one_saved_author(app):
+    author = Author(name="New Author 1")
+    db.session.add(author)
     db.session.commit()
