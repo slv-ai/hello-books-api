@@ -1,7 +1,7 @@
 from flask import Blueprint, abort, make_response, request, Response
 from app.models.book import Book
 from ..db import db
-from .route_utilities import validate_book
+from .route_utilities import validate_model
 
 bp  = Blueprint("books_bp", __name__, url_prefix="/books")
 @bp.post("")
@@ -57,7 +57,7 @@ def get_all_books():
 
 @bp.get("/<book_id>")
 def get_one_book(book_id):
-    book = validate_book(Book, book_id)
+    book = validate_model(Book, book_id)
 
     return book.to_dict()
 
@@ -69,7 +69,7 @@ def get_one_book(book_id):
 
 @bp.put("/<book_id>")
 def update_book(book_id):
-    book = validate_book(Book, book_id)
+    book = validate_model(Book, book_id)
     request_body = request.get_json()
 
     book.title = request_body["title"]
@@ -79,7 +79,7 @@ def update_book(book_id):
 
 @bp.delete("/<book_id>")
 def delete_book(book_id):
-    book = validate_book(Book, book_id)
+    book = validate_model(Book, book_id)
     db.session.delete(book)
     db.session.commit()
 
