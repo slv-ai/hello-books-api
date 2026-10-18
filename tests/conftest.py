@@ -13,7 +13,8 @@ def app():
         "SQLALCHEMY_DATABASE_URI" : os.environ.get("SQLALCHEMY_TEST_DATABASE_URI")
     }
     app =create_app(test_config)
-    @request_finished.connect_via(app)
+
+    @request_finished.connect_via(app) #DECORATOR INDICATES THE FUNCTION DEFINED BELOW WILL BE INVOKED AFTER ANY REQUEST COMPLETED
     def expire_session(sender,response,**extra):
         db.session.remove()
     with app.app_context():

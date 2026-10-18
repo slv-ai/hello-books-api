@@ -16,15 +16,16 @@ def test_get_all_books_with_two_records(client,two_saved_books):
     #assert
     assert response.status_code == 200
     assert response_body[0] == {
+            "id" : 2,
+            "title" : "mountain book",
+            "description" : "2 climb rocks"
+        }
+    assert response_body[1] == {
         "id" : 1,
         "title" : "ocean book" ,
         "description" : "watever 4ever"
     }
-    assert response_body[1] == {
-        "id" : 2,
-        "title" : "mountain book",
-        "description" : "2 climb rocks"
-    }
+    
 
 def test_get_all_books_with_title_query_matching_none(client,two_saved_books):
     #Act

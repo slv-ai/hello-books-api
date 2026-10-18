@@ -87,6 +87,64 @@ def test_from_dict_with_extra_keys():
     # Assert
     assert new_book.title == "New Book"
     assert new_book.description == "The Best!"
+
+def test_to_dict_with_no_missing_data():
+    #Arange
+    test_data = Book(id = 1,
+                    title ="ocean book",
+                    description = "watever 4ever")
+    #Act
+    result = test_data.to_dict()
+    
+    #assert
+    assert len(result) == 3
+    assert result["title"] == "ocean book"
+    assert result["id"] == 1
+    assert result["description"] == "watever 4ever"
+
+def test_to_dict_missing_id():
+    # Arrange
+    test_data = Book(title="Ocean Book",
+                    description="watr 4evr")
+
+    # Act
+    result = test_data.to_dict()
+
+    # Assert
+    assert len(result) == 3
+    assert result["id"] is None
+    assert result["title"] == "Ocean Book"
+    assert result["description"] == "watr 4evr"
+
+def test_to_dict_missing_title():
+    # Arrange
+    test_data = Book(id=1,
+                    description="watr 4evr")
+
+    # Act
+    result = test_data.to_dict()
+
+    # Assert
+    assert len(result) == 3
+    assert result["id"] == 1
+    assert result["title"] is None
+    assert result["description"] == "watr 4evr"
+
+def test_to_dict_missing_description():
+    # Arrange
+    test_data = Book(id = 1,
+                    title="Ocean Book")
+
+    # Act
+    result = test_data.to_dict()
+
+    # Assert
+    assert len(result) == 3
+    assert result["id"] == 1
+    assert result["title"] == "Ocean Book"
+    assert result["description"] is None
+
+
     
 
     

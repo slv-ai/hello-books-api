@@ -6,27 +6,27 @@ bp  = Blueprint("books_bp", __name__, url_prefix="/books")
 @bp.post("")
 def create_book():
     request_body = request.get_json()
-    title = request_body['title']
-    description = request_body['description']
-    new_book = Book(title = title,description = description)
+    # title = request_body['title']
+    # description = request_body['description']
+    # new_book = Book(title = title,description = description)
 
-
-    # try :
-    #     new_book = Book.from_dict(request_body)
-    # except KeyError as error:
-    #     response ={"message" : f"Invalid request : missing {error.args[0]}"}
-    #     abort(make_response(response,400))
+    try :
+        new_book = Book.from_dict(request_body)
+    except KeyError as error:
+        response ={"message" : f"Invalid request : missing {error.args[0]}"}
+        abort(make_response(response,400))
 
     db.session.add(new_book)
     db.session.commit()
+    return new_book.to_dict(),201
 
-    response = {
-        "id": new_book.id,
-        "title" : new_book.title,
-        "description" : new_book.description
-    }
-    return response,201
-    #return new_book.to_dict(),201
+    # response = {
+    #     "id": new_book.id,
+    #     "title" : new_book.title,
+    #     "description" : new_book.description
+    # }
+    # return response,201
+    
 
 @bp.get("")
 def get_all_books():
@@ -45,26 +45,26 @@ def get_all_books():
     books = db.session.scalars(query)
     books_response = []
     for book in books:
-        books_response.append(
-            {
-                "id" : book.id,
-                "title" : book.title,
-                "description" : book.description
-            }
-        )
+        books_response.append(book.to_dict())
+            # {
+            #     "id" : book.id,
+            #     "title" : book.title,
+            #     "description" : book.description
+            # }
+        
     return books_response
 
 @bp.get("/<book_id>")
 def get_one_book(book_id):
     book = validate_book(book_id)
 
-    # return book.to_dict()
+    return book.to_dict()
 
-    return{
-        "id" : book.id,
-        "title" : book.title,
-        "description" : book.description
-    }
+    # return{
+    #     "id" : book.id,
+    #     "title" : book.title,
+    #     "description" : book.description
+    # }
 
 
 def validate_book(book_id):
