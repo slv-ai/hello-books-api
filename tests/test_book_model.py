@@ -1,4 +1,6 @@
 from app.models.book import Book
+from app.models.author import Author
+from app.models.genre import Genre
 import pytest
 
 def test_from_book_dict_returns_book():
@@ -90,6 +92,7 @@ def test_from_dict_with_extra_keys():
 
 def test_to_dict_with_no_missing_data():
     #Arange
+
     test_data = Book(id = 1,
                     title ="ocean book",
                     description = "watever 4ever")
