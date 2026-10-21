@@ -18,17 +18,18 @@ class Book(db.Model):
         book_as_dict['description'] = self.description
         if self.author:
             book_as_dict['author'] = self.author.name
+        # if self.author_id:
+        #     book_as_dict["author_id"] = self.author_id
         
         return book_as_dict
 
     @classmethod
     def from_dict(cls,book_data):
-        author_id  = book_data.get("author_id")
-        genres = book_data.get("genres",[])
+        
         new_book = cls(
             title = book_data["title"],
             description = book_data["description"],
-            author_id = author_id,
+            author_id = book_data.get("author_id")
             
         )
         return new_book

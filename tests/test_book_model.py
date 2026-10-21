@@ -1,6 +1,6 @@
 from app.models.book import Book
 from app.models.author import Author
-from app.models.genre import Genre
+#from app.models.genre import Genre
 import pytest
 
 def test_from_book_dict_returns_book():

@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 import os
 from app.models.book import Book
 from app.models.author import Author
-from app.models.genre import Genre
+#from app.models.genre import Genre
 
 @pytest.fixture
 def app():

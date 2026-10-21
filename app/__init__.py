@@ -1,10 +1,10 @@
 from flask import Flask
 from .routes.book_routes import bp as books_bp
 from .routes.author_routes import bp as authors_bp
-from .routes.genre_routes import bp as genres_bp
+#from .routes.genre_routes import bp as genres_bp
 from .db import db
 from .db import migrate
-from .models import book, author , genre , book_genre
+from .models import book, author 
 import os
 
 def create_app(config = None):
@@ -20,7 +20,8 @@ def create_app(config = None):
     
     app.register_blueprint(books_bp)
     app.register_blueprint(authors_bp)
-    app.register_blueprint(genres_bp)
+    
+    #app.register_blueprint(genres_bp)
 
 
     return app
