@@ -4,7 +4,7 @@ from .routes.author_routes import bp as authors_bp
 from .routes.genre_routes import bp as genres_bp
 from .db import db
 from .db import migrate
-from .models import book, author 
+from .models import book, author, genre,book_genre
 import os
 
 def create_app(config = None):

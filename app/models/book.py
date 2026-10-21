@@ -10,6 +10,7 @@ class Book(db.Model):
     description : Mapped[str]
     author_id : Mapped[Optional[int]] = mapped_column(ForeignKey("author.id")) #connecting a book to an author,author id optional it can be int or none
     author: Mapped[Optional["Author"]] = relationship(back_populates="books") #connects Book python object to Author python object
+    genres : Mapped[list["Genre"]] = relationship(secondary="book_genre", back_populates="books")
     
     def to_dict(self):
         book_as_dict ={}
@@ -20,6 +21,8 @@ class Book(db.Model):
             book_as_dict['author'] = self.author.name
         # if self.author_id:
         #     book_as_dict["author_id"] = self.author_id
+        if self.genres:
+            book_as_dict["genres"] = [genre.name for genre in self.genres]
         
         return book_as_dict
 
@@ -29,7 +32,8 @@ class Book(db.Model):
         new_book = cls(
             title = book_data["title"],
             description = book_data["description"],
-            author_id = book_data.get("author_id")
+            author_id = book_data.get("author_id"),
+            genres = book_data.get("genres",[])
             
         )
         return new_book
