@@ -5,8 +5,7 @@ from ..db import db
 class Author(db.Model):
     id : Mapped[int] = mapped_column(primary_key= True, autoincrement= True)
     name : Mapped[str]
-    books : Mapped[list["Book"]] = relationship(back_populates="author")
-
+    
     def to_dict(self):
         author_as_dict ={}
         author_as_dict['id'] = self.id
